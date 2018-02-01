@@ -131,10 +131,10 @@
 		}
 		document.cookie="hash="+hash; 
 		$.post("TwitterView.php", function( data ) {$( "#TaskList" ).html( data );});
-		document.getElementById("headMain").innerHTML = 'Tweet HashTag View For '+hash+'<button id="numDis" type="button" class="btn btn-primary btn-lg" style="width:45%;margin-bottom: 5px;float: right;" onClick="num()">Change Number of tweets to display</button>'
+		document.getElementById("headMain").innerHTML = 'Tweet HashTag View For '+hash+'<button id="numDis" type="button" class="btn btn-primary btn-lg" style="width:45%;margin-bottom: 5px;float: right;" onClick="numView()">Change Number of tweets to display</button>'
 		}
 		
-	function num()
+	function numView()
 	{
 		var num = prompt("Please Enter a Number Of Tweets to Display", "");
 		while (num==""||num==null||isNaN(num))
