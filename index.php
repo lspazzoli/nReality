@@ -42,9 +42,7 @@
 
         </div>
         <div class="col-md-6">
-            <h2 class="page-header">Tweet HashTag View
-				<button id="numDis" type="button" class="btn btn-primary btn-lg" style="width:45%;margin-bottom: 5px;float: right;" onClick="num()">
-				Change Number of tweets to display</button>
+            <h2 class="page-header" id="headMain">
 			</h2>
             <!-- Button trigger modal -->
             <button id="Search" type="button" class="btn btn-primary btn-lg" style="width:100%;margin-bottom: 5px;" onClick="searchHash()">
@@ -121,7 +119,8 @@
     });
 	
 	function viewSaved() {//Get Saved Tweets
-		  $.post("list_tasks.php", function( data ) {$( "#TaskList" ).html( data );});
+		document.getElementById("headMain").innerHTML = "Saved Tweet View";
+		$.post("list_tasks.php", function( data ) {$( "#TaskList" ).html( data );});
 		}
 		
 	function searchHash(){//Search For A hashtag and display first 15 entries
@@ -132,19 +131,26 @@
 		}
 		document.cookie="hash="+hash; 
 		$.post("TwitterView.php", function( data ) {$( "#TaskList" ).html( data );});
+		document.getElementById("headMain").innerHTML = 'Tweet HashTag View For '+hash+'<button id="numDis" type="button" class="btn btn-primary btn-lg" style="width:45%;margin-bottom: 5px;float: right;" onClick="num()">Change Number of tweets to display</button>'
 		}
 		
 	function num()
 	{
-		var num = prompt("Please Enter a Number Of tweets to display", "");
+		var num = prompt("Please Enter a Number Of Tweets to Display", "");
 		while (num==""||num==null||isNaN(num))
 		{
 			num = prompt("Nothing Entered or Data Entered is not a number\nPlease Enter a Number Of tweets to display", "");
 		}
 		document.cookie="num="+num;
+		$.post("TwitterView.php", function( data ) {$( "#TaskList" ).html( data );});//auto refresh page
 	}
 	
-	num();
+	var num = prompt("Please Enter a Default Number Of Tweets to Display", "");//placed here to run as page loads
+		while (num==""||num==null||isNaN(num))
+		{
+			num = prompt("Nothing Entered or Data Entered is Not a Number\nPlease Enter a Number Of  Tweets to Display", "");
+		}
+		document.cookie="num="+num;
 	
 	
 </script>
