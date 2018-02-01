@@ -12,7 +12,7 @@
 		);
 	
 	//Set up request
-	$hashtag="test";
+	$hashtag=$_COOKIE['hash'];;
 	$url = 'https://api.twitter.com/1.1/search/tweets.json' ;
     $requestMethod = "GET";
     $getfield = '?q=#'.$hashtag.'&tweet_mode=extended';
@@ -22,19 +22,28 @@
 	$string = json_decode($twitter->setGetfield($getfield)
 		->buildOauth($url, $requestMethod)
 		->performRequest(),$assoc = TRUE);
-		
+	$html="";	
 	//Display
 	foreach($string['statuses'] as $items) 
 	{
 		$datecreate = $items['created_at'];
 		$id = $items['id'];
-		$twit = $items['full_text'];
+		$tweet = $items['full_text']; 
+		$html .= '<a id="'.$id.'" href=""  class="list-group-item" data-toggle="modal" data-target="#myModal">
+                    <h4 class="list-group-item-heading">'.$datecreate.'</h4>
+                    <p class="list-group-item-text">'.$tweet.'</p>
+                </a>';
 
-		echo"<br/>";
-		//echo "ID: $id<br />";
-		echo "Created: $datecreate<br />";
-		echo "Tweet: $twit<br />";  
-
-		}
+	}
+	//If No tweets found 
+	if($html=="")
+	{
+		$html = '<a id="newSearch" onClick="searchHash()" class="list-group-item" >
+                    <h4 class="list-group-item-heading">No Tweets Found</h4>
+                    <p class="list-group-item-text">Click here to Search For One</p>
+                </a>';
+	}
+		
+	die($html);
 	
 ?>
