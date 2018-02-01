@@ -42,7 +42,10 @@
 
         </div>
         <div class="col-md-6">
-            <h2 class="page-header">Tweet HashTag View</h2>
+            <h2 class="page-header">Tweet HashTag View
+				<button id="numDis" type="button" class="btn btn-primary btn-lg" style="width:45%;margin-bottom: 5px;float: right;" onClick="num()">
+				Change Number of tweets to display</button>
+			</h2>
             <!-- Button trigger modal -->
             <button id="Search" type="button" class="btn btn-primary btn-lg" style="width:100%;margin-bottom: 5px;" onClick="searchHash()">
                 Search HashTag
@@ -130,6 +133,19 @@
 		document.cookie="hash="+hash; 
 		$.post("TwitterView.php", function( data ) {$( "#TaskList" ).html( data );});
 		}
+		
+	function num()
+	{
+		var num = prompt("Please Enter a Number Of tweets to display", "");
+		while (num==""||num==null||isNaN(num))
+		{
+			num = prompt("Nothing Entered or Data Entered is not a number\nPlease Enter a Number Of tweets to display", "");
+		}
+		document.cookie="num="+num;
+	}
+	
+	num();
+	
 	
 </script>
 </html>

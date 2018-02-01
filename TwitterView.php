@@ -12,10 +12,11 @@
 		);
 	
 	//Set up request
-	$hashtag=$_COOKIE['hash'];;
+	$hashtag=$_COOKIE['hash'];
+	$num=$_COOKIE['num'];
 	$url = 'https://api.twitter.com/1.1/search/tweets.json' ;
     $requestMethod = "GET";
-    $getfield = '?q=#'.$hashtag.'&tweet_mode=extended';
+    $getfield = '?q=#'.$hashtag.'&tweet_mode=extended&count='.$num;
 	
 	//Get Info From Twitter
 	$twitter = new TwitterAPIExchange($settings);
